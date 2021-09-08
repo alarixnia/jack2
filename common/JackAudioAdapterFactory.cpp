@@ -35,6 +35,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #define JackPlatformAdapter JackAlsaAdapter
 #endif
 
+#ifdef __NetBSD__
+#include "JackSunAdapter.h"
+#define JackPlatformAdapter JackSunAdapter
+#endif
+
 #if defined(__sun__) || defined(sun)
 #include "JackOSSAdapter.h"
 #define JackPlatformAdapter JackOSSAdapter

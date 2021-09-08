@@ -192,6 +192,7 @@ def detect_platform(conf):
         # ('KEY, 'Human readable name', ['strings', 'to', 'check', 'for'])
         ('IS_LINUX',   'Linux',   ['gnu0', 'gnukfreebsd', 'linux', 'posix']),
         ('IS_MACOSX',  'MacOS X', ['darwin']),
+        ('IS_NETBSD',  'NetBSD',  ['netbsd']),
         ('IS_SUN',     'SunOS',   ['sunos']),
         ('IS_WINDOWS', 'Windows', ['cygwin', 'msys', 'win32'])
     ]
@@ -530,6 +531,9 @@ def obj_add_includes(bld, obj):
     if bld.env['IS_SUN']:
         obj.includes += ['posix', 'solaris']
 
+    if bld.env['IS_NETBSD']:
+        obj.includes += ['posix', 'netbsd']
+
     if bld.env['IS_WINDOWS']:
         obj.includes += ['windows']
 
@@ -677,6 +681,11 @@ def build_drivers(bld):
         'windows/portaudio/JackPortAudioDriver.cpp',
     ]
 
+    sun_src = [
+        'common/memops.c',
+        'netbsd/sun/JackSunDriver.cpp'
+    ]
+
     winmme_src = [
         'windows/winmme/JackWinMMEDriver.cpp',
         'windows/winmme/JackWinMMEInputPort.cpp',
@@ -777,6 +786,12 @@ def build_drivers(bld):
             bld,
             target = 'oss',
             source = oss_src)
+
+    if bld.env['IS_NETBSD']:
+        create_driver_obj(
+            bld,
+            target = 'sun',
+            source = sun_src)
 
 def build(bld):
     if not bld.variant and bld.env['BUILD_WITH_32_64']:

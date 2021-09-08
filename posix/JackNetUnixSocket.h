@@ -47,7 +47,7 @@ namespace Jack
 
             struct sockaddr_in fSendAddr;
             struct sockaddr_in fRecvAddr;
-        #if defined(__sun__) || defined(sun)
+        #if defined(__sun__) || defined(sun) || defined(__NetBSD__)
             int WaitRead();
             int WaitWrite();
         #endif

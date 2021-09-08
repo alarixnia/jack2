@@ -51,7 +51,7 @@ JackClientSocket::JackClientSocket(): JackClientRequestInterface(), fSocket(-1),
 JackClientSocket::JackClientSocket(int socket): JackClientRequestInterface(), fSocket(socket),fTimeOut(0), fPromiscuous(false), fPromiscuousGid(-1)
 {}
 
-#if defined(__sun__) || defined(sun)
+#if defined(__sun__) || defined(sun) || defined(__NetBSD__)
 
 void JackClientSocket::SetReadTimeOut(long sec)
 {
@@ -168,7 +168,7 @@ int JackClientSocket::Read(void* data, int len)
 {
     int res;
 
-#if defined(__sun__) || defined(sun)
+#if defined(__sun__) || defined(sun) || defined(__NetBSD__)
     if (fTimeOut > 0) {
 
         struct timeval tv;
@@ -214,7 +214,7 @@ int JackClientSocket::Write(void* data, int len)
 {
     int res;
 
-#if defined(__sun__) || defined(sun)
+#if defined(__sun__) || defined(sun) || defined(__NetBSD__)
     if (fTimeOut > 0) {
 
         struct timeval tv;

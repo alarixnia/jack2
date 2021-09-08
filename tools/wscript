@@ -31,6 +31,8 @@ def build(bld):
         os_incdir = ['../macosx', '../posix']
     if bld.env['IS_SUN']:
         os_incdir = ['../solaris', '../posix']
+    if bld.env['IS_NETBSD']:
+        os_incdir = ['../netbsd', '../posix']
     if bld.env['IS_WINDOWS']:
         os_incdir = ['../windows']
     for example_tool, example_tool_source in list(example_tools.items()):
